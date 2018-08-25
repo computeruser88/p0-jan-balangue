@@ -39,7 +39,7 @@ public class User {
 		bfw.writeFile(this.profile, "./User.txt");
 	}
 	public boolean validateIdentity() {
-		String[] authorizedUser = new String[3];
+		String[] authorizedUser;
 		authorizedUser = bfr.readLines("./User.txt");
 		if (authorizedUser[0].equals(this.userName) && authorizedUser[1].equals(this.password)) {
 			return true;

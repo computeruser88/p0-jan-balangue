@@ -33,14 +33,11 @@ public class BankFileWriter {
 		} catch (IOException e) {
 			e.printStackTrace();
 		} finally {
-			if (bw != null) {
-				try {
-					bw.close();
-					fw.close();
-				} catch (IOException e) {
-					log.error(e);
-				}
-				
+			try {
+				bw.close();
+				fw.close();
+			} catch (NullPointerException|IOException e) {
+				log.error(e);
 			}
 		}
 	}
