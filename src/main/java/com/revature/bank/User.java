@@ -9,7 +9,7 @@ public class User {
 	private String password;
 	private String balanceStr;
 	private ArrayList<String> profile = new ArrayList<>();
-	protected static final String path = "./User.txt";
+	protected static final String PATH = "./User.txt";
 	private String[] checkIfUserExists;
 	private BankFileWriter bfw = new BankFileWriter();
 	private BankFileReader bfr = new BankFileReader();
@@ -27,17 +27,17 @@ public class User {
 		this.profile.add(userName);
 		this.profile.add(password);
 		this.profile.add(balanceStr);
-		this.checkIfUserExists = bfr.readLines(path);
+		this.checkIfUserExists = bfr.readLines(PATH);
 		if (this.checkIfUserExists[0] == "") {
 			this.writeUser();
 		}
 	}
 	
 	public void writeUser() {
-		bfw.writeFile(this.profile, path);
+		bfw.writeFile(this.profile, PATH);
 	}
 	public boolean validateIdentity() {
-		String[] authorizedUser = bfr.readLines(path);
+		String[] authorizedUser = bfr.readLines(PATH);
 		return authorizedUser[0].equals(this.userName) && authorizedUser[1].equals(this.password);
 	}
 	
@@ -64,7 +64,7 @@ public class User {
 	public void setBalanceStr(String balanceStr) {
 		this.balanceStr = balanceStr;
 		this.profile.set(2, balanceStr);
-		bfw.writeFile(this.profile, path);
+		bfw.writeFile(this.profile, PATH);
 	}
  	public void performTransaction(String transactionType, double transactionAmount) {
 		double balance = Double.parseDouble(this.balanceStr);
@@ -74,7 +74,7 @@ public class User {
 			balanceStr = Double.toString(balance);
  			System.out.println("Deposit completed. Your new balance is " + balanceStr);
  			this.profile.set(2, balanceStr);
- 			bfw.writeFile(this.profile, path);
+ 			bfw.writeFile(this.profile, PATH);
 			break;
 		case "withdrawal":
 			if (balance >= transactionAmount) {
@@ -82,7 +82,7 @@ public class User {
 				balanceStr = Double.toString(balance);		
 	 			System.out.println("Withdrawal completed. Your new balance is " + balanceStr);
 	 			this.profile.set(2, balanceStr);
-	 			bfw.writeFile(this.profile, path);				
+	 			bfw.writeFile(this.profile, PATH);				
 			} else {
 				System.out.println("Insufficient funds for withdrawal. No changes made.");
 			}
