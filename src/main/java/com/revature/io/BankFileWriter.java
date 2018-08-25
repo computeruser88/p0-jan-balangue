@@ -18,17 +18,16 @@ public class BankFileWriter {
 	}
  	public void writeFile(List<String> t, String path) {
 		File file = new File(path);
-		if (!file.exists()) {
-			try {
-				file.createNewFile();
-			} catch (IOException e) {
-				log.error(e);
-			}
-		}
- 		try (FileWriter fw = new FileWriter(file, false);
- 			BufferedWriter bw = new BufferedWriter(fw)){		
-			for (String str: t) {
-				bw.write(str + "\n");
+		try {
+			if (file.createNewFile()) {
+				try (FileWriter fw = new FileWriter(file, false);
+						BufferedWriter bw = new BufferedWriter(fw)){		
+					for (String str: t) {
+						bw.write(str + "\n");
+					}
+				} catch (IOException e) {
+					log.error(e);
+				}
 			}
 		} catch (IOException e) {
 			log.error(e);
