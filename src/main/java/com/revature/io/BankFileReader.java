@@ -10,10 +10,9 @@ import java.io.FileReader;
 	public String[] readLines(String path) {
 		String[] lines = new String[3];
 		File file = new File(path);
-		FileReader fr;
-		try {
-			fr = new FileReader(file);
-			BufferedReader br = new BufferedReader(fr);
+		try (FileReader fr = new FileReader(file);
+				BufferedReader br = new BufferedReader(fr);){
+			
 			for (int i = 0; i < lines.length; i++) {
 				lines[i] = br.readLine();
 			}
