@@ -38,11 +38,7 @@ public class User {
 	}
 	public boolean validateIdentity() {
 		String[] authorizedUser = bfr.readLines("./User.txt");
-		if (authorizedUser[0].equals(this.userName) && authorizedUser[1].equals(this.password)) {
-			return true;
-		} else {
-			return false;
-		}
+		return authorizedUser[0].equals(this.userName) && authorizedUser[1].equals(this.password);
 	}
 	
 	public String getUserName() {
