@@ -9,7 +9,7 @@ public class User {
 	private String password;
 	private String balanceStr;
 	private ArrayList<String> profile = new ArrayList<>();
-	protected final String path = "./User.txt";
+	protected static final String path = "./User.txt";
 	private String[] checkIfUserExists;
 	private BankFileWriter bfw = new BankFileWriter();
 	private BankFileReader bfr = new BankFileReader();

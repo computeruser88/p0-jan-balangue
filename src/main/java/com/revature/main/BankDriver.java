@@ -2,6 +2,8 @@ package com.revature.main;
 
 import java.util.Scanner;
 
+import org.apache.log4j.Logger;
+
 import com.revature.bank.User;
 import com.revature.io.BankFileReader;
 
@@ -9,6 +11,8 @@ public class BankDriver {
 	
 	private static Scanner sc = new Scanner(System.in);
 	private static BankFileReader bfr = new BankFileReader();
+	private static Logger log = Logger.getRootLogger();
+	
 	
 	public static void main(String[] args) {
 		
@@ -72,8 +76,7 @@ public class BankDriver {
 		String transaction = sc.nextLine();
 		switch (transaction) {
 			case "View balance":
-				String[] accountRecords  = new String[3];
-				accountRecords = bfr.readLines("./User.txt");
+				String[] accountRecords = bfr.readLines("./User.txt");
 				System.out.println("Account balance:" + accountRecords[2]);
 				break;
 			case "Create transaction":
