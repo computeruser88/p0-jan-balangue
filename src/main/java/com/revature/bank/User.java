@@ -9,7 +9,7 @@ public class User {
 	private String password;
 	private String balanceStr;
 	private ArrayList<String> profile = new ArrayList<>();
-	protected String path = "./User.txt";
+	protected final String path = "./User.txt";
 	private String[] checkIfUserExists;
 	private BankFileWriter bfw = new BankFileWriter();
 	private BankFileReader bfr = new BankFileReader();
@@ -27,17 +27,17 @@ public class User {
 		this.profile.add(userName);
 		this.profile.add(password);
 		this.profile.add(balanceStr);
-		this.checkIfUserExists = bfr.readLines("./User.txt");
+		this.checkIfUserExists = bfr.readLines(path);
 		if (this.checkIfUserExists[0] == "") {
 			this.writeUser();
 		}
 	}
 	
 	public void writeUser() {
-		bfw.writeFile(this.profile, "./User.txt");
+		bfw.writeFile(this.profile, path);
 	}
 	public boolean validateIdentity() {
-		String[] authorizedUser = bfr.readLines("./User.txt");
+		String[] authorizedUser = bfr.readLines(path);
 		return authorizedUser[0].equals(this.userName) && authorizedUser[1].equals(this.password);
 	}
 	
@@ -64,7 +64,7 @@ public class User {
 	public void setBalanceStr(String balanceStr) {
 		this.balanceStr = balanceStr;
 		this.profile.set(2, balanceStr);
-		bfw.writeFile(this.profile, "./User.txt");
+		bfw.writeFile(this.profile, path);
 	}
  	public void performTransaction(String transactionType, double transactionAmount) {
 		double balance = Double.parseDouble(this.balanceStr);
