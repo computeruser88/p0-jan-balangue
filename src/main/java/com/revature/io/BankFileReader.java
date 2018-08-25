@@ -2,7 +2,13 @@ package com.revature.io;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
+
+import org.apache.log4j.Logger;
  public class BankFileReader {
+	 
+	private static Logger log = Logger.getRootLogger();
+
+	 
  	public BankFileReader() {
 		super();
 	}
@@ -17,7 +23,7 @@ import java.io.FileReader;
 				lines[i] = br.readLine();
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
+			log.error(e);
 		}
 		return lines;
 	}
