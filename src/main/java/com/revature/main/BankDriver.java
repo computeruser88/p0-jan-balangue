@@ -19,7 +19,7 @@ public class BankDriver {
 		System.out.println("Revature Bank");
 		System.out.println("-------------\n");
 		System.out.println("Would you like to login, register, or exit?");
-		String option = "";
+		String option;
 		do {
 			option = sc.nextLine();
 			switch (option) {
@@ -36,7 +36,7 @@ public class BankDriver {
 						transaction = transactionQuery(user);
 					}
 				} else {
-					System.out.println("Invalid login credentials.");
+					log.error("Invalid login credentials.");
 				}
 				break;
 			case "register":
@@ -44,28 +44,31 @@ public class BankDriver {
 				String newUserName = sc.nextLine();
 				System.out.println("Enter password: ");
 				String newPassword = sc.nextLine();
-				String[] checkIfAlreadyRegistered = new String[3];
-				checkIfAlreadyRegistered = bfr.readLines("./User.txt");
-				if (checkIfAlreadyRegistered[0] == "") {
-					User newUser = new User(newUserName, newPassword);
-					String transaction = "";
-					while(transaction != "Logout") {
-						transaction = transactionQuery(newUser);
-					}
-				} else {
-					System.out.println("A user has already been registered. Login instead.");
-				}
+				register(newUserName, newPassword);
 				break;
-			case "exit":
+			case "exit":	
 				break;
 			default:
-				System.out.println("Invalid request. Please try again.");
+				log.error("Invalid request. Please try again.");
 			}
 			System.out.println("Would you like to login, register, or exit?");
 		} while (option != "exit");
 		System.out.println("Thank you for your business. Goodbye.");
 		sc.close();
 		System.exit(0);
+	}
+	
+	public static void register (String userName, String password) {
+		String[] checkIfAlreadyRegistered = bfr.readLines("./User.txt");
+		if (checkIfAlreadyRegistered[0] == "") {
+			User newUser = new User(userName, password);
+			String transaction = "";
+			while(transaction != "Logout") {
+				transaction = transactionQuery(newUser);
+			}
+		} else {
+			log.error("A user has already been registered. Login instead.");
+		}
 	}
 	
 	public static String transactionQuery(User user) {
@@ -88,20 +91,20 @@ public class BankDriver {
 				try {
 					transactionAmount = Double.parseDouble(amountStr);
 					if (transactionAmount < 0) {
-						System.out.println("Error: cannot have a negative transaction amount.");
+						log.error("Error: cannot have a negative transaction amount.");
 					} else {
 						user.performTransaction(transactionType, transactionAmount);
 					}
 					
 				} catch (Exception e) {
-					System.out.println("Invalid transaction amount.");
+					log.error("Invalid transaction amount.");
 				}
 				break;
 			case "Logout":
 				System.out.println("You are now logged out.");
 				return "Logout";
 			default:
-				System.out.println("Invalid transaction type.");
+				log.error("Invalid transaction type.");
 		}
 		return transaction;
 	}
