@@ -9,10 +9,10 @@ public class User {
 	private String password;
 	private String balanceStr;
 	private ArrayList<String> profile = new ArrayList<>();
-	protected transient String path = "./User.txt";
-	private transient String[] checkIfUserExists;
-	private transient BankFileWriter bfw = new BankFileWriter();
-	private transient BankFileReader bfr = new BankFileReader();
+	protected String path = "./User.txt";
+	private String[] checkIfUserExists;
+	private BankFileWriter bfw = new BankFileWriter();
+	private BankFileReader bfr = new BankFileReader();
 	
 	public User() {
 		super();
@@ -37,8 +37,7 @@ public class User {
 		bfw.writeFile(this.profile, "./User.txt");
 	}
 	public boolean validateIdentity() {
-		String[] authorizedUser = new String[3];
-		authorizedUser = bfr.readLines("./User.txt");
+		String[] authorizedUser = bfr.readLines("./User.txt");
 		if (authorizedUser[0].equals(this.userName) && authorizedUser[1].equals(this.password)) {
 			return true;
 		} else {
