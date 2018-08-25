@@ -1,16 +1,14 @@
 package com.revature.bank;
 
 import java.util.ArrayList;
-
 import com.revature.io.BankFileReader;
 import com.revature.io.BankFileWriter;
 
 public class User {
-
-	private String userName;
+ 	private String userName;
 	private String password;
 	private String balanceStr;
-	private ArrayList<String> profile = new ArrayList<String>();
+	private ArrayList<String> profile = new ArrayList<>();
 	protected transient String path = "./User.txt";
 	private transient String[] checkIfUserExists;
 	private transient BankFileWriter bfw = new BankFileWriter();
@@ -39,7 +37,7 @@ public class User {
 		bfw.writeFile(this.profile, "./User.txt");
 	}
 	public boolean validateIdentity() {
-		String[] authorizedUser;
+		String[] authorizedUser = new String[3];
 		authorizedUser = bfr.readLines("./User.txt");
 		if (authorizedUser[0].equals(this.userName) && authorizedUser[1].equals(this.password)) {
 			return true;
@@ -73,8 +71,7 @@ public class User {
 		this.profile.set(2, balanceStr);
 		bfw.writeFile(this.profile, "./User.txt");
 	}
-
-	public void performTransaction(String transactionType, double transactionAmount) {
+ 	public void performTransaction(String transactionType, double transactionAmount) {
 		double balance = Double.parseDouble(this.balanceStr);
 		switch (transactionType) {
 		case "deposit":
@@ -99,8 +96,7 @@ public class User {
 			System.out.println("Invalid transaction type.");
 		}
 	}
-
-	@Override
+ 	@Override
 	public String toString() {
 		return "userName=" + userName
 				+ ", password=" + password + "]";
