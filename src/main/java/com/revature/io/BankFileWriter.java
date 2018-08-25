@@ -20,17 +20,20 @@ public class BankFileWriter {
 		File file = new File(path);
 		try {
 			if (file.createNewFile()) {
-				try (FileWriter fw = new FileWriter(file, false);
-						BufferedWriter bw = new BufferedWriter(fw)){		
-					for (String str: t) {
-						bw.write(str + "\n");
-					}
-				} catch (IOException e) {
-					log.error(e);
-				}
+				createWriter(file, t);
 			}
 		} catch (IOException e) {
 			log.error(e);
 		}
 	}
+ 	public void createWriter(File file, List<String> t) {
+ 		try (FileWriter fw = new FileWriter(file, false);
+				BufferedWriter bw = new BufferedWriter(fw)){		
+			for (String str: t) {
+				bw.write(str + "\n");
+			}
+		} catch (IOException e) {
+			log.error(e);
+		}
+ 	}
 }
