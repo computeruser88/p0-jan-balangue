@@ -10,7 +10,7 @@ public class User {
 	private String userName;
 	private String password;
 	private String balanceStr;
-	private ArrayList<String> profile = new ArrayList<>();
+	private ArrayList<String> profile = new ArrayList<String>();
 	protected transient String path = "./User.txt";
 	private transient String[] checkIfUserExists;
 	private transient BankFileWriter bfw = new BankFileWriter();
