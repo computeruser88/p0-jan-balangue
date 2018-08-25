@@ -11,18 +11,19 @@ public class BankFileWriter {
 		super();
 	}
  	public void writeFile(ArrayList<String> t, String path) {
-		try {
-			File file = new File(path);	
-			if (!file.exists()) {
+		File file = new File(path);
+		if (!file.exists()) {
+			try {
 				file.createNewFile();
+			} catch (IOException e) {
+				e.printStackTrace();
 			}
-			FileWriter fw = new FileWriter(file, false);
-			BufferedWriter bw = new BufferedWriter(fw);
+		}
+ 		try (FileWriter fw = new FileWriter(file, false);
+ 			BufferedWriter bw = new BufferedWriter(fw)){		
 			for (String str: t) {
 				bw.write(str + "\n");
 			}
-			bw.close();
-			fw.close();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

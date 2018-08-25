@@ -16,8 +16,6 @@ import java.io.FileReader;
 			for (int i = 0; i < lines.length; i++) {
 				lines[i] = br.readLine();
 			}
-			br.close();
-			fr.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
