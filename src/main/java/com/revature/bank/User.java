@@ -1,6 +1,9 @@
 package com.revature.bank;
 
 import java.util.ArrayList;
+
+import org.apache.log4j.Logger;
+
 import com.revature.io.BankFileReader;
 import com.revature.io.BankFileWriter;
 
@@ -13,6 +16,7 @@ public class User {
 	private String[] checkIfUserExists;
 	private BankFileWriter bfw = new BankFileWriter();
 	private BankFileReader bfr = new BankFileReader();
+	private static Logger log = Logger.getRootLogger();
 	
 	public User() {
 		super();
@@ -72,7 +76,7 @@ public class User {
 		case "deposit":
 			balance += transactionAmount;		
 			balanceStr = Double.toString(balance);
- 			System.out.println("Deposit completed. Your new balance is " + balanceStr);
+ 			log.info("Deposit completed. Your new balance is " + balanceStr);
  			this.profile.set(2, balanceStr);
  			bfw.writeFile(this.profile, PATH);
 			break;
@@ -80,15 +84,15 @@ public class User {
 			if (balance >= transactionAmount) {
 				balance -= transactionAmount;
 				balanceStr = Double.toString(balance);		
-	 			System.out.println("Withdrawal completed. Your new balance is " + balanceStr);
+	 			log.info("Withdrawal completed. Your new balance is " + balanceStr);
 	 			this.profile.set(2, balanceStr);
 	 			bfw.writeFile(this.profile, PATH);				
 			} else {
-				System.out.println("Insufficient funds for withdrawal. No changes made.");
+				log.info("Insufficient funds for withdrawal. No changes made.");
 			}
 			break;
 		default:
-			System.out.println("Invalid transaction type.");
+			log.info("Invalid transaction type.");
 		}
 	}
  	@Override
