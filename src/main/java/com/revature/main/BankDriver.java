@@ -53,9 +53,7 @@ public class BankDriver {
 				}
 				break;
 			case "exit":
-				System.out.println("Thank you for your business. Goodbye.");
-				sc.close();
-				System.exit(0);
+				break;
 			default:
 				System.out.println("Invalid request. Please try again.");
 			}
