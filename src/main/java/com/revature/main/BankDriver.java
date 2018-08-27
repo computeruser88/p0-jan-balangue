@@ -4,13 +4,13 @@ import java.util.Scanner;
 
 import org.apache.log4j.Logger;
 
-import com.revature.bank.User;
-import com.revature.io.BankFileReader;
+import com.revature.bank.Customer;
+//import com.revature.io.BankFileReader;
 
 public class BankDriver {
 	
 	private static Scanner sc = new Scanner(System.in);
-	private static BankFileReader bfr = new BankFileReader();
+//	private static BankFileReader bfr = new BankFileReader();
 	private static Logger log = Logger.getRootLogger();
 	
 	
@@ -25,15 +25,15 @@ public class BankDriver {
 			switch (option) {
 			case "login":
 				log.info("Enter username: ");
-				String userName = sc.nextLine();
+				String customerName = sc.nextLine();
 				log.info("Enter password: ");
 				String password = sc.nextLine();
-				User user = new User(userName, password);
-				if (user.validateIdentity())	{
+				Customer customer = new Customer(customerName, password);
+				if (customer.validateIdentity())	{
 					log.info("User authorized.");
 					String transaction = "";
 					while(transaction != "Logout") {
-						transaction = transactionQuery(user);
+						transaction = transactionQuery(customer);
 					}
 				} else {
 					log.error("Invalid login credentials.");
@@ -41,10 +41,10 @@ public class BankDriver {
 				break;
 			case "register":
 				log.info("Enter username: ");
-				String newUserName = sc.nextLine();
+				String newCustomerName = sc.nextLine();
 				log.info("Enter password: ");
 				String newPassword = sc.nextLine();
-				register(newUserName, newPassword);
+				register(newCustomerName, newPassword);
 				break;
 			case "exit":	
 				log.info("Thank you for your business. Goodbye.");
@@ -58,20 +58,20 @@ public class BankDriver {
 		} while (option != "exit");
 	}
 	
-	public static void register (String userName, String password) {
-		String[] checkIfAlreadyRegistered = bfr.readLines("./User.txt");
-		if (checkIfAlreadyRegistered[0] == "") {
-			User newUser = new User(userName, password);
-			String transaction = "";
-			while(transaction != "Logout") {
-				transaction = transactionQuery(newUser);
-			}
-		} else {
-			log.error("A user has already been registered. Login instead.");
-		}
+	public static void register (String customerName, String password) {
+//		String[] checkIfAlreadyRegistered = bfr.readLines("./User.txt");
+//		if (checkIfAlreadyRegistered[0] == "") {
+//			Customer newCustomer = new Customer(customerName, password);
+//			String transaction = "";
+//			while(transaction != "Logout") {
+//				transaction = transactionQuery(newCustomer);
+//			}
+//		} else {
+//			log.error("A user has already been registered. Login instead.");
+//		}
 	}
 	
-	public static String transactionQuery(User user) {
+	public static String transactionQuery(Customer customer) {
 		log.info("\nWhat kind of transaction do you want? Please type one of the following: ");
 		log.info("\tView balance");
 		log.info("\tCreate transaction");
@@ -79,8 +79,8 @@ public class BankDriver {
 		String transaction = sc.nextLine();
 		switch (transaction) {
 			case "View balance":
-				String[] accountRecords = bfr.readLines("./User.txt");
-				log.info("Account balance:" + accountRecords[2]);
+//				String[] accountRecords = bfr.readLines("./User.txt");
+//				log.info("Account balance:" + accountRecords[2]);
 				break;
 			case "Create transaction":
 				log.info("Enter transaction type: deposit or withdrawal?");
@@ -93,7 +93,7 @@ public class BankDriver {
 					if (transactionAmount <= 0) {
 						log.error("Error: cannot have a negative or zero transaction amount.");
 					} else {
-						user.performTransaction(transactionType, transactionAmount);
+						customer.performTransaction(transactionType, transactionAmount);
 					}
 					
 				} catch (Exception e) {

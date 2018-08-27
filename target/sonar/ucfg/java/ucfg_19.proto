@@ -6,7 +6,7 @@ SC:\Users\janto\code\p0-jan-balangue\src\main\java\com\revature\main\BankDriver.
 ]
 SC:\Users\janto\code\p0-jan-balangue\src\main\java\com\revature\main\BankDriver.javam m(
 
-transaction*Ý
+transaction*à
 12]
 SC:\Users\janto\code\p0-jan-balangue\src\main\java\com\revature\main\BankDriver.javaQ Q(Ä
 ]
@@ -14,27 +14,27 @@ SC:\Users\janto\code\p0-jan-balangue\src\main\java\com\revature\main\BankDriver.
 
 ./User.txt‹
 ]
-SC:\Users\janto\code\p0-jan-balangue\src\main\java\com\revature\main\BankDriver.javaS S(=%6__concat"
+SC:\Users\janto\code\p0-jan-balangue\src\main\java\com\revature\main\BankDriver.javaS S(3%6__concat"
 Account balance:"
-""
+"" 
 ]
-SC:\Users\janto\code\p0-jan-balangue\src\main\java\com\revature\main\BankDriver.javaS S(>%70java.io.PrintStream#println(Ljava/lang/String;)V"
+SC:\Users\janto\code\p0-jan-balangue\src\main\java\com\revature\main\BankDriver.javaS S(4%73org.apache.log4j.Category#info(Ljava/lang/Object;)V"
 
 %6*
-1*ð
+1*ü
 2]
-SC:\Users\janto\code\p0-jan-balangue\src\main\java\com\revature\main\BankDriver.javaK K(å
+SC:\Users\janto\code\p0-jan-balangue\src\main\java\com\revature\main\BankDriver.javaK K(è
 ]
-SC:\Users\janto\code\p0-jan-balangue\src\main\java\com\revature\main\BankDriver.javaK K(b%00java.io.PrintStream#println(Ljava/lang/String;)V"NL
-J\nWhat kind of transaction do you want? Please type one of the following: ©
+SC:\Users\janto\code\p0-jan-balangue\src\main\java\com\revature\main\BankDriver.javaK K(X%03org.apache.log4j.Category#info(Ljava/lang/Object;)V"NL
+J\nWhat kind of transaction do you want? Please type one of the following: ¬
 ]
-SC:\Users\janto\code\p0-jan-balangue\src\main\java\com\revature\main\BankDriver.javaL L(&%10java.io.PrintStream#println(Ljava/lang/String;)V"
-\tView balance¯
+SC:\Users\janto\code\p0-jan-balangue\src\main\java\com\revature\main\BankDriver.javaL L(%13org.apache.log4j.Category#info(Ljava/lang/Object;)V"
+\tView balance²
 ]
-SC:\Users\janto\code\p0-jan-balangue\src\main\java\com\revature\main\BankDriver.javaM M(,%20java.io.PrintStream#println(Ljava/lang/String;)V"
-\tCreate transaction£
+SC:\Users\janto\code\p0-jan-balangue\src\main\java\com\revature\main\BankDriver.javaM M("%23org.apache.log4j.Category#info(Ljava/lang/Object;)V"
+\tCreate transaction¦
 ]
-SC:\Users\janto\code\p0-jan-balangue\src\main\java\com\revature\main\BankDriver.javaN N( %30java.io.PrintStream#println(Ljava/lang/String;)V"
+SC:\Users\janto\code\p0-jan-balangue\src\main\java\com\revature\main\BankDriver.javaN N(%33org.apache.log4j.Category#info(Ljava/lang/Object;)V"
 
 \tLogout“
 ]
@@ -52,11 +52,11 @@ SC:\Users\janto\code\p0-jan-balangue\src\main\java\com\revature\main\BankDriver.
 ]
 SC:\Users\janto\code\p0-jan-balangue\src\main\java\com\revature\main\BankDriver.javak k(*%174org.apache.log4j.Category#error(Ljava/lang/Object;)V"
 Invalid transaction type.*
-1*…
+1*ˆ
 4]
-SC:\Users\janto\code\p0-jan-balangue\src\main\java\com\revature\main\BankDriver.javag g(³
+SC:\Users\janto\code\p0-jan-balangue\src\main\java\com\revature\main\BankDriver.javag g(¶
 ]
-SC:\Users\janto\code\p0-jan-balangue\src\main\java\com\revature\main\BankDriver.javah h(1%160java.io.PrintStream#println(Ljava/lang/String;)V"
+SC:\Users\janto\code\p0-jan-balangue\src\main\java\com\revature\main\BankDriver.javah h('%163org.apache.log4j.Category#info(Ljava/lang/Object;)V"
 You are now logged out."k
 ]
 SC:\Users\janto\code\p0-jan-balangue\src\main\java\com\revature\main\BankDriver.javai i(
@@ -70,12 +70,12 @@ SC:\Users\janto\code\p0-jan-balangue\src\main\java\com\revature\main\BankDriver.
 
 transactionType"
 ""*
-1*»
+1*Ã
 8]
-SC:\Users\janto\code\p0-jan-balangue\src\main\java\com\revature\main\BankDriver.java^ ^(	Ñ
+SC:\Users\janto\code\p0-jan-balangue\src\main\java\com\revature\main\BankDriver.java^ ^(	Ù
 ]
-SC:\Users\janto\code\p0-jan-balangue\src\main\java\com\revature\main\BankDriver.java^ ^(D%134org.apache.log4j.Category#error(Ljava/lang/Object;)V"53
-1Error: cannot have a negative transaction amount.*
+SC:\Users\janto\code\p0-jan-balangue\src\main\java\com\revature\main\BankDriver.java^ ^(L%134org.apache.log4j.Category#error(Ljava/lang/Object;)V"=;
+9Error: cannot have a negative or zero transaction amount.*
 1*”
 10]
 SC:\Users\janto\code\p0-jan-balangue\src\main\java\com\revature\main\BankDriver.java\ \(¦
@@ -84,20 +84,20 @@ SC:\Users\janto\code\p0-jan-balangue\src\main\java\com\revature\main\BankDriver.
 
 	amountStr*
 7
-8*‰
+8*
 11]
-SC:\Users\janto\code\p0-jan-balangue\src\main\java\com\revature\main\BankDriver.javaU U(É
+SC:\Users\janto\code\p0-jan-balangue\src\main\java\com\revature\main\BankDriver.javaU U(Ì
 ]
-SC:\Users\janto\code\p0-jan-balangue\src\main\java\com\revature\main\BankDriver.javaV V(H%80java.io.PrintStream#println(Ljava/lang/String;)V"20
+SC:\Users\janto\code\p0-jan-balangue\src\main\java\com\revature\main\BankDriver.javaV V(>%83org.apache.log4j.Category#info(Ljava/lang/Object;)V"20
 .Enter transaction type: deposit or withdrawal?“
 ]
 SC:\Users\janto\code\p0-jan-balangue\src\main\java\com\revature\main\BankDriver.javaW W(*%9.java.util.Scanner#nextLine()Ljava/lang/String;~
 ]
 SC:\Users\janto\code\p0-jan-balangue\src\main\java\com\revature\main\BankDriver.javaW W(+transactionType__id"
 
-%9©
+%9¬
 ]
-SC:\Users\janto\code\p0-jan-balangue\src\main\java\com\revature\main\BankDriver.javaX X('%100java.io.PrintStream#println(Ljava/lang/String;)V"
+SC:\Users\janto\code\p0-jan-balangue\src\main\java\com\revature\main\BankDriver.javaX X(%103org.apache.log4j.Category#info(Ljava/lang/Object;)V"
 Enter amount:”
 ]
 SC:\Users\janto\code\p0-jan-balangue\src\main\java\com\revature\main\BankDriver.javaY Y($%11.java.util.Scanner#nextLine()Ljava/lang/String;y
