@@ -10,4 +10,6 @@ public interface AccountDAO {
 	public int createAccount(Account account);
 	public int updateAccount(Account account);
 	public int deleteAccountById(int id);
+	public void deposit(int accountId, double amount);
+	public void withdraw(int accountId, double amount);
 }

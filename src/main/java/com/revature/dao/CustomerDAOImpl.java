@@ -121,7 +121,7 @@ public class CustomerDAOImpl implements CustomerDAO {
 			
 			rowsDeleted = ps.executeUpdate();
 		} catch (SQLException | IOException e) {
-			log.error(e.getMessage());
+			log.error(e);
 		} finally {
 			try {if (ps != null) ps.close();} catch(SQLException e) {}
 		}

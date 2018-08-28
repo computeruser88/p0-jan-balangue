@@ -1,6 +1,7 @@
 package com.revature.dao;
 
 import java.io.IOException;
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -120,11 +121,51 @@ public class AccountDAOImpl implements AccountDAO {
 			
 			rowsDeleted = ps.executeUpdate();
 		} catch (SQLException | IOException e) {
-			log.error(e.getMessage());
+			log.error(e);
 		} finally {
 			try {if (ps != null) ps.close();} catch(SQLException e) {}
 		}
 		
 		return rowsDeleted;
+	}
+	@Override
+	public void deposit(int accountId, double amount) {
+		String sql = "{call DEPOSIT(?,?)}";
+		
+		Connection con = null;
+		
+		CallableStatement cs = null;
+				
+		try {
+			con = ConnectionUtil.getConnection();
+			cs = con.prepareCall(sql);
+			cs.setInt(1, accountId);
+			cs.setDouble(2, amount);
+			cs.execute();
+		} catch(IOException | SQLException e) {
+			log.error(e.getMessage());
+		} finally {
+			try {if (cs != null) cs.close();} catch(SQLException e) {}
+		}
+	}
+	@Override
+	public void withdraw(int accountId, double amount) {
+		String sql = "{call WITHDRAW(?,?)}";
+		
+		Connection con = null;
+		
+		CallableStatement cs = null;
+				
+		try {
+			con = ConnectionUtil.getConnection();
+			cs = con.prepareCall(sql);
+			cs.setInt(1, accountId);
+			cs.setDouble(2, amount);
+			cs.execute();
+		} catch(IOException | SQLException e) {
+			log.error(e.getMessage());
+		} finally {
+			try {if (cs != null) cs.close();} catch(SQLException e) {}
+		}
 	}
 }
