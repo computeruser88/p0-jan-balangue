@@ -2,6 +2,7 @@ package com.revature.dao;
 
 import java.io.IOException;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -27,13 +28,14 @@ public class AccountDAOImpl implements AccountDAO {
 				Statement s = con.createStatement();
 				ResultSet rs = s.executeQuery(sql)){
 			while(rs.next()) {
-				Account a = new Account();
-				
+				Account a = null;
+				String accountType = rs.getString("ACCOUNTTYPE");
+				double balance = rs.getDouble("BALANCE");
+				int customerId = rs.getInt("CUSTOMERID");
+				a = new Account(accountType, balance, customerId);
 				accountList.add(a);
 			}
-		} catch (IOException e) {
-			log.error(e);
-		} catch (SQLException e) {
+		} catch (IOException|SQLException e) {
 			log.error(e);
 		}
 		return accountList;
@@ -41,13 +43,59 @@ public class AccountDAOImpl implements AccountDAO {
 
 	@Override
 	public Account getAccountById(int id) {
-		return null;
+		Account a = null;
+		String sql = "SELECT * FROM ACCOUNT WHERE ACCOUNTID = ?";
+		
+		Connection con;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		
+		try { 
+			con = ConnectionUtil.getConnection();
+			ps = con.prepareStatement(sql);
+			ps.setInt(1, id);
+			 
+			rs = ps.executeQuery();
+			
+			if (rs.next()) {
+				a = new Account();
+				a.setAccountType(rs.getString("ACCOUNTTYPE"));
+				a.setBalance(rs.getDouble("BALANCE"));
+			}
+		} catch (IOException | SQLException e) {
+			log.error(e);
+		} finally {
+			try {if (rs!=null) rs.close();} catch(SQLException e) {}
+			try {if (ps!=null) ps.close();} catch(SQLException e) {}
+		}
+		
+		return a;
 	}
 
 	@Override
 	public int createAccount(Account account) {
-		// TODO Auto-generated method stub
-		return 0;
+		String sql = "INSERT INTO ACCOUNT (ACCOUNTTYPE, BALANCE, CUSTOMERID) values (?, ?, ?)";
+		
+		Connection con = null;
+		
+		PreparedStatement ps = null;
+		
+		int accountsUpdated = 0;
+		
+		try {
+			con = ConnectionUtil.getConnection();
+			ps = con.prepareStatement(sql);
+			ps.setString(1, account.getAccountType());
+			ps.setDouble(2, account.getBalance());
+			
+			// Execute the statement, and give the rows affected. 
+			accountsUpdated = ps.executeUpdate();
+		} catch (IOException | SQLException e) {
+			log.error(e);
+		} finally {
+			try {if (ps != null) ps.close();} catch(SQLException e) {}
+		}
+		return accountsUpdated;
 	}
 
 	@Override
@@ -58,8 +106,25 @@ public class AccountDAOImpl implements AccountDAO {
 
 	@Override
 	public int deleteAccountById(int id) {
-		// TODO Auto-generated method stub
-		return 0;
+		int rowsDeleted = 0;
+		
+		String sql = "DELETE FROM ACCOUNT WHERE ACCOUNTID = ?";
+		
+		Connection con = null;
+		PreparedStatement ps = null;
+		
+		try {
+			con = ConnectionUtil.getConnection();
+			ps = con.prepareStatement(sql);
+			ps.setInt(1, id);
+			
+			rowsDeleted = ps.executeUpdate();
+		} catch (SQLException | IOException e) {
+			log.error(e.getMessage());
+		} finally {
+			try {if (ps != null) ps.close();} catch(SQLException e) {}
+		}
+		
+		return rowsDeleted;
 	}
-
 }

@@ -23,9 +23,8 @@ public class Customer {
 		super();
 	}
 	
-	public Customer(int customerID, String customerName, String password) {
+	public Customer(String customerName, String password) {
 		super();
-		this.customerId = customerId;
 		this.customerName = customerName;
 		this.password = password;
 		this.balanceStr = "0.0";

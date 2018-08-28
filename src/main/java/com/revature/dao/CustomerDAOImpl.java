@@ -2,6 +2,7 @@ package com.revature.dao;
 
 import java.io.IOException;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -28,13 +29,13 @@ public class CustomerDAOImpl implements CustomerDAO {
 				Statement s = con.createStatement();
 				ResultSet rs = s.executeQuery(sql)){
 			while(rs.next()) {
-				Customer c = new Customer();
-				
+				Customer c = null;
+				String customerName = rs.getString("CUSTNAME");
+				String password = rs.getString("CUSTPASSWORD");
+				c = new Customer(customerName, password);
 				customerList.add(c);
 			}
-		} catch (IOException e) {
-			log.error(e);
-		} catch (SQLException e) {
+		} catch (IOException|SQLException e) {
 			log.error(e);
 		}
 		return customerList;
@@ -42,26 +43,89 @@ public class CustomerDAOImpl implements CustomerDAO {
 
 	@Override
 	public Customer getCustomerById(int id) {
+		Customer c = new Customer();
+		String sql = "SELECT * FROM CUSTOMER WHERE CUSTOMERID = ?";
 		
-		return null;
+		// Connection object
+		Connection con;
+		// An object for using a Prepared SQL Statement
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		
+		try {
+			// Open the connection to the 
+			con = ConnectionUtil.getConnection();
+			ps = con.prepareStatement(sql);
+			ps.setInt(1, id);
+			
+			// Keep in mind, this needs to be closed 
+			rs = ps.executeQuery();
+			
+			if (rs.next()) {
+				c.setCustomerName(rs.getString("CUSTNAME"));
+				c.setPassword(rs.getString("PASSWORD"));
+			}
+		} catch (IOException | SQLException e) {
+			log.error(e);
+		} finally {
+			try {if (rs!=null) rs.close();} catch(SQLException e) {}
+			try {if (ps!=null) ps.close();} catch(SQLException e) {}
+		}	
+		return c;
 	}
 
 	@Override
 	public int createCustomer(Customer customer) {
-		// TODO Auto-generated method stub
-		return 0;
+		
+		String sql = "INSERT INTO CUSTOMER (CUSTNAME, PASSWORD) values (?, ?)";
+		
+		Connection con = null;
+		PreparedStatement ps = null;
+		
+		int customersUpdated = 0;
+		
+		try {
+			con = ConnectionUtil.getConnection();
+			ps = con.prepareStatement(sql);
+
+			ps.setString(1, customer.getCustomerName());
+			ps.setString(2, customer.getPassword());
+			 
+			customersUpdated = ps.executeUpdate();
+		} catch (IOException | SQLException e) {
+			log.error(e.getMessage());
+		} finally {
+			try {if (ps != null) ps.close();} catch(SQLException e) {}
+		}
+		return customersUpdated;
 	}
 
 	@Override
 	public int updateCustomer(Customer customer) {
-		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
 	public int deleteCustomerById(int id) {
-		// TODO Auto-generated method stub
-		return 0;
+		int rowsDeleted = 0;
+		
+		String sql = "DELETE FROM CUSTOMER WHERE CUSTOMERID = ?";
+		
+		Connection con = null;
+		PreparedStatement ps = null;
+		
+		try {
+			con = ConnectionUtil.getConnection();
+			ps = con.prepareStatement(sql);
+			ps.setInt(1, id);
+			
+			rowsDeleted = ps.executeUpdate();
+		} catch (SQLException | IOException e) {
+			log.error(e.getMessage());
+		} finally {
+			try {if (ps != null) ps.close();} catch(SQLException e) {}
+		}
+		
+		return rowsDeleted;
 	}
-
 }
