@@ -124,7 +124,6 @@ public class Customer {
 //	 			this.profile.set(2, balanceStr);
 //	 			bfw.writeFile(this.profile, PATH);
 	 			adi.withdraw(a.getAccountId(), transactionAmount);
-	 			a = adi.getAccountByCustomerId(customerId);
 	 			log.info("Withdrawal completed. Your new balance is " + a.getBalance(a.getAccountId()));
 			} else {
 				log.error("Error: insufficient funds for withdrawal. No changes made.");
