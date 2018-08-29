@@ -1,8 +1,13 @@
 package com.revature.bank;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.log4j.Logger;
+
+import com.revature.dao.AccountDAO;
+import com.revature.dao.AccountDAOImpl;
+import com.revature.dao.CustomerDAO;
+import com.revature.dao.CustomerDAOImpl;
 
 //import com.revature.io.BankFileReader;
 //import com.revature.io.BankFileWriter;
@@ -11,11 +16,9 @@ public class Customer {
 	private int customerId;
  	private String customerName;
 	private String password;
-	private String balanceStr;
-	private ArrayList<String> profile = new ArrayList<>();
+	//	private ArrayList<String> profile = new ArrayList<>();
 	protected static final String PATH = "./User.txt";
-	private String[] checkIfCustomerExists;
-//	private BankFileWriter bfw = new BankFileWriter();
+	//	private BankFileWriter bfw = new BankFileWriter();
 //	private BankFileReader bfr = new BankFileReader();
 	private static Logger log = Logger.getRootLogger();
 	
@@ -27,15 +30,15 @@ public class Customer {
 		super();
 		this.customerName = customerName;
 		this.password = password;
-		this.balanceStr = "0.0";
-		this.profile.clear();
-		this.profile.add(customerName);
-		this.profile.add(password);
-		this.profile.add(balanceStr);
+//		this.balance = 0.00;
+//		this.profile.clear();
+//		this.profile.add(customerName);
+//		this.profile.add(password);
+//		this.profile.add(balance);
 //		this.checkIfCustomerExists = bfr.readLines(PATH);
-		if (this.checkIfCustomerExists[0] == "") {
-			this.writeCustomer();
-		}
+//		if (this.checkIfCustomerExists[0] == "") {
+//			this.writeCustomer();
+//		}
 	}
 	
 	public int getCustomerId() {
@@ -46,13 +49,28 @@ public class Customer {
 		this.customerId = id;
 	}
 	
-	public void writeCustomer() {
-//		bfw.writeFile(this.profile, PATH);
-	}
-	public boolean validateIdentity() {
+//	public void writeCustomer() {
+////		bfw.writeFile(this.profile, PATH);
+//	}
+	public boolean validateIdentity(String customerName, String password) {
+		CustomerDAO cdi = new CustomerDAOImpl();
+		boolean isCustomerFound = false;
+		List<Customer> allCustomers = cdi.getCustomers();
+		log.info(allCustomers);
+		for (Customer c: allCustomers) {
+//			log.info(c);
+//			log.info(c.getCustomerName());
+//			log.info(c.getPassword());
+//			log.info(customerName);
+//			log.info(password);
+			if (c.getCustomerName().equals(customerName) && c.getPassword().equals(password)) {
+				log.info("User credentials validated.");
+				return true;
+			}
+		}
 //		String[] authorizedCustomer = bfr.readLines(PATH);
 //		return authorizedCustomer[0].equals(this.customerName) && authorizedCustomer[1].equals(this.password);
-		return false;
+		return isCustomerFound;
 	}
 	
 	public String getCustomerName() {
@@ -71,34 +89,45 @@ public class Customer {
 		this.password = password;
 	}
 	
-	public String getBalanceStr() {
-		return this.balanceStr;
-	}
-	
-	public void setBalanceStr(String balanceStr) {
-		this.balanceStr = balanceStr;
-		this.profile.set(2, balanceStr);
-//		bfw.writeFile(this.profile, PATH);
-	}
- 	public void performTransaction(String transactionType, double transactionAmount) {
-		double balance = Double.parseDouble(this.balanceStr);
+//	public double getBalance() {
+//		return this.balance;
+//	}
+//	
+//	public void setBalance(double balance) {
+//		this.balance = balance;
+////		this.profile.set(2, balance);
+////		bfw.writeFile(this.profile, PATH);
+//	}
+ 	public void performTransaction(int customerId, String transactionType, double transactionAmount) {
+ 		
 		switch (transactionType) {
 		case "deposit":
-			balance += transactionAmount;		
-			balanceStr = Double.toString(balance);
- 			log.info("Deposit completed. Your new balance is " + balanceStr);
- 			this.profile.set(2, balanceStr);
+		case "1":
+			if (transactionAmount <= 0.00) {
+				log.error("Error: cannot deposit a zero or negative amount.");
+			} else {
+				AccountDAO adi = new AccountDAOImpl();
+				Account a = adi.getAccountByCustomerId(customerId);
+				adi.deposit(a.getAccountId(), transactionAmount);
+				a = adi.getAccountByCustomerId(customerId);
+				log.info("Deposit completed. Your new balance is " + a.getBalance(a.getAccountId()));
+			}
 // 			bfw.writeFile(this.profile, PATH);
 			break;
 		case "withdrawal":
+		case "2":
+			AccountDAO adi = new AccountDAOImpl();
+			Account a = adi.getAccountByCustomerId(customerId);
+			double balance = a.getBalance(a.getAccountId());
 			if (balance >= transactionAmount) {
-				balance -= transactionAmount;
-				balanceStr = Double.toString(balance);		
-	 			log.info("Withdrawal completed. Your new balance is " + balanceStr);
-	 			this.profile.set(2, balanceStr);
-//	 			bfw.writeFile(this.profile, PATH);				
+//				balanceStr = Double.toString(balance);		
+//	 			this.profile.set(2, balanceStr);
+//	 			bfw.writeFile(this.profile, PATH);
+	 			adi.withdraw(a.getAccountId(), transactionAmount);
+	 			a = adi.getAccountByCustomerId(customerId);
+	 			log.info("Withdrawal completed. Your new balance is " + a.getBalance(a.getAccountId()));
 			} else {
-				log.info("Insufficient funds for withdrawal. No changes made.");
+				log.error("Error: insufficient funds for withdrawal. No changes made.");
 			}
 			break;
 		default:

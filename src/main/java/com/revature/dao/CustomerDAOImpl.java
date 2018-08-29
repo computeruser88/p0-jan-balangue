@@ -63,7 +63,7 @@ public class CustomerDAOImpl implements CustomerDAO {
 			
 			if (rs.next()) {
 				c.setCustomerName(rs.getString("CUSTNAME"));
-				c.setPassword(rs.getString("PASSWORD"));
+				c.setPassword(rs.getString("CUSTPASSWORD"));
 			}
 		} catch (IOException | SQLException e) {
 			log.error(e);
@@ -77,7 +77,7 @@ public class CustomerDAOImpl implements CustomerDAO {
 	@Override
 	public int createCustomer(Customer customer) {
 		
-		String sql = "INSERT INTO CUSTOMER (CUSTNAME, PASSWORD) values (?, ?)";
+		String sql = "INSERT INTO CUSTOMER (CUSTNAME, CUSTPASSWORD) values (?, ?)";
 		
 		Connection con = null;
 		PreparedStatement ps = null;

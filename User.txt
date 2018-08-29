@@ -1,3 +1,0 @@
-jan
-password
-100000.0

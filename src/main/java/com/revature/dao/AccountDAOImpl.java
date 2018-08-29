@@ -43,7 +43,7 @@ public class AccountDAOImpl implements AccountDAO {
 	}
 
 	@Override
-	public Account getAccountById(int id) {
+	public Account getAccountById(int accountId) {
 		Account a = null;
 		String sql = "SELECT * FROM ACCOUNT WHERE ACCOUNTID = ?";
 		
@@ -54,7 +54,7 @@ public class AccountDAOImpl implements AccountDAO {
 		try { 
 			con = ConnectionUtil.getConnection();
 			ps = con.prepareStatement(sql);
-			ps.setInt(1, id);
+			ps.setInt(1, accountId);
 			 
 			rs = ps.executeQuery();
 			
@@ -74,6 +74,36 @@ public class AccountDAOImpl implements AccountDAO {
 	}
 
 	@Override
+	public Account getAccountByCustomerId(int customerId) {
+		Account a = null;
+		String sql = "SELECT * FROM ACCOUNT WHERE CUSTOMERID = ?";
+		
+		Connection con;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		
+		try { 
+			con = ConnectionUtil.getConnection();
+			ps = con.prepareStatement(sql);
+			ps.setInt(1, customerId);
+			 
+			rs = ps.executeQuery();
+			
+			if (rs.next()) {
+				a = new Account();
+				a.setAccountType(rs.getString("ACCOUNTTYPE"));
+				a.setBalance(rs.getDouble("BALANCE"));
+			}
+		} catch (IOException | SQLException e) {
+			log.error(e);
+		} finally {
+			try {if (rs!=null) rs.close();} catch(SQLException e) {}
+			try {if (ps!=null) ps.close();} catch(SQLException e) {}
+		}
+		
+		return a;
+	}
+	@Override
 	public int createAccount(Account account) {
 		String sql = "INSERT INTO ACCOUNT (ACCOUNTTYPE, BALANCE, CUSTOMERID) values (?, ?, ?)";
 		
@@ -87,7 +117,8 @@ public class AccountDAOImpl implements AccountDAO {
 			con = ConnectionUtil.getConnection();
 			ps = con.prepareStatement(sql);
 			ps.setString(1, account.getAccountType());
-			ps.setDouble(2, account.getBalance());
+			ps.setDouble(2, account.getBalance(account.getAccountId()));
+			ps.setInt(3, account.getCustomerId());
 			
 			// Execute the statement, and give the rows affected. 
 			accountsUpdated = ps.executeUpdate();
@@ -101,7 +132,6 @@ public class AccountDAOImpl implements AccountDAO {
 
 	@Override
 	public int updateAccount(Account account) {
-		// TODO Auto-generated method stub
 		return 0;
 	}
 

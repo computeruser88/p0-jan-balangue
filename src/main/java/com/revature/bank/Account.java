@@ -30,8 +30,8 @@ public class Account {
 		this.accountType = accountType;
 	}
 
-	public double getBalance() {
-		return balance;
+	public double getBalance(int accountId) {
+		return this.balance;
 	}
 
 	public void setBalance(double balance) {
